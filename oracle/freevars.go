@@ -192,6 +192,10 @@ func (r *freevarsResult) display(printf printfFunc) {
 	}
 }
 
+func (r *freevarsResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *freevarsResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	var refs []*serial.FreeVar
 	for _, ref := range r.refs {

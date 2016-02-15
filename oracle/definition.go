@@ -65,6 +65,14 @@ func (r *definitionResult) display(printf printfFunc) {
 	printf(r.obj, "defined here as %s", r.qpos.objectString(r.obj))
 }
 
+func (r *definitionResult) GetType() string {
+	return "Unimplemented"
+}
+
+func (r *definitionResult) Object() types.Object {
+	return r.obj
+}
+
 func (r *definitionResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	definition := &serial.Definition{
 		Desc: r.obj.String(),

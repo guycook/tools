@@ -84,6 +84,10 @@ func (r *describeUnknownResult) display(printf printfFunc) {
 	printf(r.node, "%s", astutil.NodeDescription(r.node))
 }
 
+func (r *describeUnknownResult) GetType() string {
+	return "describeUnknownResult"
+}
+
 func (r *describeUnknownResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	res.Describe = &serial.Describe{
 		Desc: astutil.NodeDescription(r.node),
@@ -385,6 +389,37 @@ func (r *describeValueResult) display(printf printfFunc) {
 	}
 }
 
+func (r *describeValueResult) GetType() string {
+	return r.typ.String()
+}
+
+func (r *describeValueResult) Object() types.Object {
+	return r.obj
+}
+
+func (r *describeValueResult) Names() []string {
+	return r.obj.Parent().Names()
+}
+
+func (r *describeValueResult) String() string {
+	// out := r.qpos.objectString(r.obj)
+	// out := "nopkg"
+	// if r.obj.Pkg() != nil {
+	// 	out = r.obj.Pkg().Scope().Lookup(r.obj.Name()).Name()
+	// }
+	// out := r.obj.Name() + ":" + fmt.Sprint(r.obj.Pos())
+	// out += " - " + r.typ.String()
+	// if typeObj, ok := r.typ.(types.Object); ok {
+	// 	out += " - " + typeObj.Name() + ":" + fmt.Sprint(typeObj.Pos())
+	// }
+	// Get the byte offset of var in switch
+	// if def := r.obj.Pos(); def != token.NoPos {
+	// 	out += "::" + fmt.Sprint(def)
+	// }
+	out := "package: " + r.obj.Pkg().Name()
+	return out
+}
+
 func (r *describeValueResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	var value, objpos string
 	if r.constVal != nil {
@@ -485,6 +520,10 @@ func (r *describeTypeResult) display(printf printfFunc) {
 			printf(r.node, "No methods.")
 		}
 	}
+}
+
+func (r *describeTypeResult) GetType() string {
+	return "describeTypeResult"
 }
 
 func (r *describeTypeResult) toSerial(res *serial.Result, fset *token.FileSet) {
@@ -599,6 +638,10 @@ func (r *describePackageResult) display(printf printfFunc) {
 	}
 }
 
+func (r *describePackageResult) GetType() string {
+	return "describePackageResult"
+}
+
 func formatMember(obj types.Object, maxname int) string {
 	qualifier := types.RelativeTo(obj.Pkg())
 	var buf bytes.Buffer
@@ -709,6 +752,10 @@ type describeStmtResult struct {
 
 func (r *describeStmtResult) display(printf printfFunc) {
 	printf(r.node, "%s", r.description)
+}
+
+func (r *describeStmtResult) GetType() string {
+	return "describeStmtResult"
 }
 
 func (r *describeStmtResult) toSerial(res *serial.Result, fset *token.FileSet) {

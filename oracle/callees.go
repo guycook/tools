@@ -211,6 +211,10 @@ func (r *calleesSSAResult) display(printf printfFunc) {
 	}
 }
 
+func (r *calleesSSAResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *calleesSSAResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	j := &serial.Callees{
 		Pos:  fset.Position(r.site.Pos()).String(),
@@ -230,13 +234,17 @@ func (r *calleesTypesResult) display(printf printfFunc) {
 	printf(r.callee, "\t%s", r.callee.FullName())
 }
 
+func (r *calleesTypesResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *calleesTypesResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	j := &serial.Callees{
 		Pos:  fset.Position(r.site.Pos()).String(),
 		Desc: "static function call",
 	}
 	j.Callees = []*serial.CalleesItem{
-		&serial.CalleesItem{
+		{
 			Name: r.callee.FullName(),
 			Pos:  fset.Position(r.callee.Pos()).String(),
 		},

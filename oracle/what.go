@@ -192,6 +192,10 @@ func (r *whatResult) display(printf printfFunc) {
 	printf(nil, "import path: %s", r.importPath)
 }
 
+func (r *whatResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *whatResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	var enclosing []serial.SyntaxNode
 	for _, n := range r.path {

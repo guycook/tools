@@ -307,6 +307,10 @@ func (r *whicherrsResult) display(printf printfFunc) {
 	}
 }
 
+func (r *whicherrsResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *whicherrsResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	we := &serial.WhichErrs{}
 	we.ErrPos = fset.Position(r.errpos).String()

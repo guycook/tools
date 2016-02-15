@@ -298,6 +298,10 @@ func (r *implementsResult) display(printf printfFunc) {
 	}
 }
 
+func (r *implementsResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *implementsResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	res.Implements = &serial.Implements{
 		T:                       makeImplementsType(r.t, fset),

@@ -42,6 +42,13 @@ type printfFunc func(pos interface{}, format string, args ...interface{})
 type queryResult interface {
 	toSerial(res *serial.Result, fset *token.FileSet)
 	display(printf printfFunc)
+	GetType() string
+}
+
+type ResultObject interface {
+	Object() types.Object
+	Names() []string
+	String() string
 }
 
 // A QueryPos represents the position provided as input to a query:
@@ -63,7 +70,7 @@ func (qpos *queryPos) typeString(T types.Type) string {
 
 // ObjectString prints object obj relative to the query position.
 func (qpos *queryPos) objectString(obj types.Object) string {
-	return types.ObjectString(obj, types.RelativeTo(qpos.info.Pkg))
+	return types.ObjectString(obj /*types.RelativeTo(qpos.info.Pkg)*/, nil)
 }
 
 // SelectionString prints selection sel relative to the query position.
@@ -85,6 +92,10 @@ type Query struct {
 	// Populated during Run()
 	Fset   *token.FileSet
 	result queryResult
+}
+
+func (q *Query) GetResult() queryResult {
+	return q.result
 }
 
 // Serial returns an instance of serial.Result, which implements the

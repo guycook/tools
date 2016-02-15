@@ -221,6 +221,10 @@ func (r *peersResult) display(printf printfFunc) {
 	}
 }
 
+func (r *peersResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *peersResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	peers := &serial.Peers{
 		Pos:  fset.Position(r.queryPos).String(),

@@ -244,6 +244,10 @@ func (r *pointstoResult) display(printf printfFunc) {
 	}
 }
 
+func (r *pointstoResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *pointstoResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	var pts []serial.PointsTo
 	for _, ptr := range r.ptrs {

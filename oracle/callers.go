@@ -102,6 +102,10 @@ func (r *callersResult) display(printf printfFunc) {
 	}
 }
 
+func (r *callersResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *callersResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	var callers []serial.Caller
 	for _, edge := range r.edges {

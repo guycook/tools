@@ -108,6 +108,10 @@ func (r *callstackResult) display(printf printfFunc) {
 	}
 }
 
+func (r *callstackResult) GetType() string {
+	return "Unimplemented"
+}
+
 func (r *callstackResult) toSerial(res *serial.Result, fset *token.FileSet) {
 	var callers []serial.Caller
 	for i := len(r.callpath) - 1; i >= 0; i-- { // (innermost first)

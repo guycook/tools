@@ -224,6 +224,10 @@ func (r *referrersResult) display(printf printfFunc) {
 	}
 }
 
+func (r *referrersResult) GetType() string {
+	return "Unimplemented"
+}
+
 // TODO(adonovan): encode extent, not just Pos info, in Serial form.
 
 func (r *referrersResult) toSerial(res *serial.Result, fset *token.FileSet) {
